@@ -60,7 +60,7 @@
 		"views": {
 			"explorer": [
 				{
-					"id": "gbdkBuild",
+					"id": "gbdk-build",
 					"name": "GBDK Build",
 					"icon": ""
 				}

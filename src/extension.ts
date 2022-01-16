@@ -36,7 +36,7 @@ class GBDKVSCodeExtension {
 			vscode.commands.registerCommand(ExtensionCommands.scaffold, (projectLocation: string, projectName: string) => scaffolder.scaffoldNewProject(projectLocation, projectName)));
 
 		vscode.window.registerTreeDataProvider(
-			'gbdkBuild',
+			'gbdk-build',
 				new BuildTreeView(context, 
 					vscode.workspace.workspaceFolders ?  vscode.workspace.workspaceFolders[0].name : undefined)
 			 );
