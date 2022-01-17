@@ -9,6 +9,15 @@ import { ProjectScaffolder } from './projectScaffolder';
 import { ExtensionCommands } from './constants';
 
 class GBDKVSCodeExtension {
+	private settings: Settings;
+	private compiler: GBDKCompiler;
+	private linker: GBDKLinker;
+
+	constructor() {
+		this.settings = new Settings();
+		this.compiler = new GBDKCompiler(this.settings);
+		this.linker = new GBDKLinker(this.settings);
+	}
 
 	// this method is called when your extension is activated
 	// your extension is activated the very first time the command is executed
@@ -18,20 +27,14 @@ class GBDKVSCodeExtension {
 		// This line of code will only be executed once when your extension is activated
 		console.log('Congratulations, your extension "gbdl-vsc" is now active!');
 
-		const settings = new Settings();
-
-		const compiler = new GBDKCompiler(settings);
-
-		const linker = new GBDKLinker(settings);
-
-		const scaffolder = new ProjectScaffolder(settings);
+		const scaffolder = new ProjectScaffolder(this.settings);
 		
 		context.subscriptions.push(
-			vscode.commands.registerCommand(ExtensionCommands.compile, compiler.compileSouceFiles),
-			vscode.commands.registerCommand(ExtensionCommands.link, linker.linkObjects),
+			vscode.commands.registerCommand(ExtensionCommands.compile, () => this.compiler.compileSouceFiles()),
+			vscode.commands.registerCommand(ExtensionCommands.link, () => this.linker.linkObjects()),
 			vscode.commands.registerCommand(ExtensionCommands.build, () => {
-				compiler.compileSouceFiles();
-				linker.linkObjects();
+				this.compiler.compileSouceFiles();
+				this.linker.linkObjects();
 			}),
 			vscode.commands.registerCommand(ExtensionCommands.scaffold, (projectLocation: string, projectName: string) => scaffolder.scaffoldNewProject(projectLocation, projectName)));
 
