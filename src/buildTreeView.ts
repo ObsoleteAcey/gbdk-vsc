@@ -51,6 +51,7 @@ class BuildStep extends vscode.TreeItem {
         super(label, collapsibleState);
         this.tooltip = toolTip;
         this.description = description;
+        this.contextValue = label;
         this.command = { 
             title: label,
             tooltip: toolTip,

@@ -1,0 +1,16 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_1" y2="27.10582" x2="5.96181" y1="5.981" x1="5.96181" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_2" y2="25.87483" x2="26.24981" y1="26.12482" x1="5.75017" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="6" x2="25.24983" y1="26" x1="25.24983" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_4" y2="21.7672" x2="22.50794" y1="21.87302" x1="8.75132" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="18.27513" x2="22.40212" y1="18.16931" x1="8.85714" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="14.46561" x2="22.33333" y1="14.35979" x1="8.92593" stroke-width="2" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_7" y2="24.4127" x2="42.98413" y1="24.4127" x1="42.77249" stroke-width="2" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_8" y2="11.50265" x2="16" y1="4.62434" x1="16" stroke="#000" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_9" y2="29.17461" x2="65.20635" y1="29.28043" x1="64.88889" stroke-width="2" stroke="#000" fill="none"/>
+  <line transform="rotate(-45 17.2169 10.0212)" stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_12" y2="10.02117" x2="18.85714" y1="10.02117" x1="15.57672" fill="none"/>
+  <line transform="rotate(45 14.6772 10.0212)" stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_13" y2="10.02117" x2="16.31746" y1="10.02117" x1="13.03704" fill="none"/>
+ </g>
+</svg>

@@ -23,15 +23,27 @@
 		"commands": [
 			{
 				"command": "gbdk.compile",
-				"title": "GBDK Compile Source"
+				"title": "GBDK Compile Source",
+				"icon": {
+					"light": "resources/light/compile.svg",
+					"dark": "resources/dark/compile.svg"
+				}
 			},
 			{
 				"command": "gbdk.link",
-				"title": "GBDK Link Object files"
+				"title": "GBDK Link Object files",
+				"icon": {
+					"light": "resources/light/link.svg",
+					"dark": "resources/dark/link.svg"
+				}
 			},
 			{
 				"command": "gbdk.build",
-				"title": "GBDK Compile and link"
+				"title": "GBDK Compile and link",
+				"icon": {
+					"light": "resources/light/run-build.svg",
+					"dark": "resources/dark/run-build.svg"
+				}
 			},
 			{
 				"command": "gbdk.scaffold",
@@ -42,17 +54,18 @@
 			"view/item/context": [
 				{
 				  "command": "gbdk.compile",
-				  "when": "view == gbdkBuild && viewItem == compile",
+				  "when": "view == gbdk-build && viewItem == compile",
 				  "group": "inline"
 				},
 				{
+
 					"command": "gbdk.link",
-					"when": "view == gbdkBuild && viewItem == link",
+					"when": "view == gbdk-build && viewItem == link",
 					"group": "inline"
 				},
 				{
 					"command": "gbdk.build",
-					"when": "view == gbdkBuild && viewItem == build",
+					"when": "view == gbdk-build && viewItem == build",
 					"group": "inline"
 				}
 			]
