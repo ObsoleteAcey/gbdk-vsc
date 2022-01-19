@@ -1,171 +1,170 @@
 {
   "name": "gbdk-vsc",
-	"displayName": "gbdk-vscode",
-	"description": "Gameboy Development Kit extension for VSCode",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.63.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onLanguage:c",
-		"onLanguage:asm",
-		"onCommand:gdbk.compile",
-		"onCommand:gdbk.link",
-		"onCommand:gdbk.build",
-		"onCommand:gdbk.scaffold",
-		"onView:gbdk-build"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "gbdk.compile",
-				"title": "GBDK Compile Source",
-				"icon": {
-					"light": "resources/light/compile.svg",
-					"dark": "resources/dark/compile.svg"
-				}
-			},
-			{
-				"command": "gbdk.link",
-				"title": "GBDK Link Object files",
-				"icon": {
-					"light": "resources/light/link.svg",
-					"dark": "resources/dark/link.svg"
-				}
-			},
-			{
-				"command": "gbdk.build",
-				"title": "GBDK Compile and link",
-				"icon": {
-					"light": "resources/light/run-build.svg",
-					"dark": "resources/dark/run-build.svg"
-				}
-			},
-			{
-				"command": "gbdk.scaffold",
-				"title": "Scaffold new GBDK project"
-			}
-		],
-		"menus": {
-			"view/item/context": [
-				{
-				  "command": "gbdk.compile",
-				  "when": "view == gbdk-build && viewItem == compile",
-				  "group": "inline"
-				},
-				{
-
-					"command": "gbdk.link",
-					"when": "view == gbdk-build && viewItem == link",
-					"group": "inline"
-				},
-				{
-					"command": "gbdk.build",
-					"when": "view == gbdk-build && viewItem == build",
-					"group": "inline"
-				}
-			]
-		},
-		"views": {
-			"explorer": [
-				{
-					"id": "gbdk-build",
-					"name": "GBDK Build",
-					"icon": ""
-				}
-			]
-		},
-		"configuration":[
-			{
-				"type": "object",
-				"title": "GDBK COnfiguration",
-				"properties": {
-					"gdbkPath": {
-						"type": "string",
-						"default": "",                
-						"description": "Path to the GBDK"
-					},
-					"compilerOptions": {
-						"type": "string",
-						"default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -c -o",
-						"description": "Options to pass to the compiler"
-					},
-					"linkerOptions": {
-						"type": "string",
-						"default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o",
-						"description": "Options to pass to the linker"
-					},
-					"romFilename": {
-						"type": "string",
-						"default": "",
-						"description": "The output file name for the Gameboy ROM.  No need to include the extension."
-					},
-					"includeFolders": {
-						"type": "array",
-						"default": [],
-						"description": "The output file name for the Gameboy ROM.  No need to include the extension.",
-						"uniqueItems": true,
-						"items": {
-							"type": "string"
-						}
-					},
-					"srcFolder": {
-						"type": "string",
-						"default": "src",
-						"description": "Folder for the src files"
-					},
-					"mapsFolder": {
-						"type": "string",
-						"default": "maps",
-						"description": "Folder for the map files"
-					},
-					"spritesFolder": {
-						"type": "string",
-						"default": "sprites",
-						"description": "Folder for the sprite files"
-					},
-					"tilesFolder": {
-						"type": "string",
-						"default": "tiles",
-						"description": "Folder for the tile files"
-					},
-					"backgroundsFolder": {
-						"type": "string",
-						"default": "backgrounds",
-						"description": "Folder for the background files"
-					},
-					"soundFolder": {
-						"type": "string",
-						"default": "sound",
-						"description": "Folder for the sound files"
-					}
-				}
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "1.63.0",
-		"@types/glob": "7.2.0",
-		"@types/mocha": "9.0.0",
-		"@types/node": "16.x",
-		"@typescript-eslint/eslint-plugin": "5.9.1",
-		"@typescript-eslint/parser": "5.9.1",
-		"eslint": "8.7.0",
-		"glob": "7.2.0",
-		"mocha": "9.1.3",
-		"typescript": "4.5.4",
-		"@vscode/test-electron": "2.1.0"
-	}
+  "displayName": "gbdk-vscode",
+  "description": "Gameboy Development Kit extension for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:asm",
+    "onCommand:gdbk.compile",
+    "onCommand:gdbk.link",
+    "onCommand:gdbk.build",
+    "onCommand:gdbk.scaffold",
+    "onView:gbdk-build"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gbdk.compile",
+        "title": "GBDK Compile Source",
+        "icon": {
+          "light": "resources/light/compile.svg",
+          "dark": "resources/dark/compile.svg"
+        }
+      },
+      {
+        "command": "gbdk.link",
+        "title": "GBDK Link Object files",
+        "icon": {
+          "light": "resources/light/link.svg",
+          "dark": "resources/dark/link.svg"
+        }
+      },
+      {
+        "command": "gbdk.build",
+        "title": "GBDK Compile and link",
+        "icon": {
+          "light": "resources/light/run-build.svg",
+          "dark": "resources/dark/run-build.svg"
+        }
+      },
+      {
+        "command": "gbdk.scaffold",
+        "title": "Scaffold new GBDK project"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "gbdk.compile",
+          "when": "view == gbdk-build && viewItem == compile",
+          "group": "inline"
+        },
+        {
+          "command": "gbdk.link",
+          "when": "view == gbdk-build && viewItem == link",
+          "group": "inline"
+        },
+        {
+          "command": "gbdk.build",
+          "when": "view == gbdk-build && viewItem == build",
+          "group": "inline"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "gbdk-build",
+          "name": "GBDK Build",
+          "icon": ""
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "type": "object",
+        "title": "GDBK COnfiguration",
+        "properties": {
+          "gdbkPath": {
+            "type": "string",
+            "default": "",
+            "description": "Path to the GBDK"
+          },
+          "compilerOptions": {
+            "type": "string",
+            "default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -c -o",
+            "description": "Options to pass to the compiler"
+          },
+          "linkerOptions": {
+            "type": "string",
+            "default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o",
+            "description": "Options to pass to the linker"
+          },
+          "romFilename": {
+            "type": "string",
+            "default": "",
+            "description": "The output file name for the Gameboy ROM.  No need to include the extension."
+          },
+          "includeFolders": {
+            "type": "array",
+            "default": [],
+            "description": "The output file name for the Gameboy ROM.  No need to include the extension.",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "srcFolder": {
+            "type": "string",
+            "default": "src",
+            "description": "Folder for the src files"
+          },
+          "mapsFolder": {
+            "type": "string",
+            "default": "maps",
+            "description": "Folder for the map files"
+          },
+          "spritesFolder": {
+            "type": "string",
+            "default": "sprites",
+            "description": "Folder for the sprite files"
+          },
+          "tilesFolder": {
+            "type": "string",
+            "default": "tiles",
+            "description": "Folder for the tile files"
+          },
+          "backgroundsFolder": {
+            "type": "string",
+            "default": "backgrounds",
+            "description": "Folder for the background files"
+          },
+          "soundFolder": {
+            "type": "string",
+            "default": "sound",
+            "description": "Folder for the sound files"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "7.2.0",
+    "@types/mocha": "9.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "1.63.0",
+    "@typescript-eslint/eslint-plugin": "5.9.1",
+    "@typescript-eslint/parser": "5.9.1",
+    "@vscode/test-electron": "2.1.0",
+    "eslint": "8.7.0",
+    "glob": "7.2.0",
+    "mocha": "9.1.3",
+    "typescript": "4.5.4"
+  }
 }

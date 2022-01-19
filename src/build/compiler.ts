@@ -12,15 +12,15 @@ export class GBDKCompiler {
         
     }
 
-    public compileSouceFiles(): void {
-        const filesToCompile = this.getCSourceFiles();
+    public async compileSouceFiles(): Promise<void> {
+        const filesToCompile = await this.getCSourceFiles();
 
         for(let file in filesToCompile) {
 
         }
     }
 
-    private getCSourceFiles(): string[] {
+    private async getCSourceFiles(): Promise<string[]> {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         
         if(!workspaceFolders || !workspaceFolders[0]) {
@@ -29,6 +29,8 @@ export class GBDKCompiler {
 
         const sourceDir = path.join(workspaceFolders[0].uri.fsPath, this.settings.srcFolder);
         
-        return [];//FileHelper.getFilesFromDir()
+        return await FileHelper.getFilesFromDir(sourceDir, (fileName: string) => {
+            return fileName.endsWith('.c');
+        });
     }
 }
