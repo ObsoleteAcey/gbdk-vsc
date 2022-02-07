@@ -1,19 +1,6 @@
 import * as vscode from 'vscode';
 import { SettingDefaultValueConstants, SettingNameConstants } from '../constants';
-
-export interface ISettings {
-    gdbkPath?: string;
-    compilerOptions?: string;
-    linkerOptions?: string;
-    romFilename?: string;
-    includeFolders?: string[];
-    srcFolder?: string;
-    mapsFolder?: string;
-    spritesFolder?: string;
-    tilesFolder?: string;
-    backgroundsFolder?: string;
-    soundFolder?: string;
-}
+import { ISettings } from '../interfaces/isettings';
 
 export class Settings {
     private readonly settings: vscode.WorkspaceConfiguration;
@@ -38,7 +25,8 @@ export class Settings {
             spritesFolder: this.spritesFolder,
             tilesFolder: this.tilesFolder,
             backgroundsFolder: this.backgroundsFolder,
-            soundFolder: this.soundFolder
+            soundFolder: this.soundFolder,
+            objectFolder: this.objectFolder
         };
     }
 
@@ -64,6 +52,10 @@ export class Settings {
 
     public get srcFolder(): string {
         return this.settings.get<string>(SettingNameConstants.srcFolder, SettingDefaultValueConstants.srcFolder);
+    }
+
+    public get objectFolder(): string {
+        return this.settings.get<string>(SettingNameConstants.objectFolder, SettingDefaultValueConstants.objectFolder);
     }
 
     public get mapsFolder(): string {

@@ -5,6 +5,7 @@ export class SettingNameConstants {
     static romFilename: string = 'romFilename';
     static includeFolders: string = 'includeFolders';
     static srcFolder: string = 'srcFolder';
+    static objectFolder: string = 'objectFolder';
     static mapsFolder: string = 'mapsFolder';
     static spritesFolder: string = 'spritesFolder';
     static tilesFolder: string = 'tilesFolder';
@@ -13,12 +14,13 @@ export class SettingNameConstants {
 }
 
 export class SettingDefaultValueConstants {
-    static gdbkPath: string = '';
+    static gdbkPath: string = 'C:\\gbdk\\bin\\lcc.exe';
     static compilerOptions: string = '-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -c -o';
     static linkerOptions: string = '-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o';
     static romFilename: string = '';
     static includeFolders: string[] = [];
     static srcFolder: string = 'src';
+    static objectFolder: string = 'obj';
     static mapsFolder: string = 'maps';
     static spritesFolder: string = 'sprites';
     static tilesFolder: string = 'tiles';

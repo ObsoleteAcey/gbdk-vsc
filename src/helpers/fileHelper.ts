@@ -1,14 +1,18 @@
 import * as fs from 'fs';
-import * as path from 'path';
+import { IFile } from '../interfaces/ifile';
 
 export class FileHelper {
 
-    public static async getFilesFromDir(path: string, filterFunction: (fileName: string, index: number, array: string[]) => boolean): Promise<string[]> {
+    public static async getFilesFromDir(filePath: string, 
+        filterFunction: (fileName: string, index: number, array: string[]) => boolean): Promise<IFile[]> {
         
-        const allFiles = fs.readdirSync(path);
+        const allFiles = fs.readdirSync(filePath);
 
-        const filteredFiles =  allFiles.filter(filterFunction).map((fileName: string) => (path.endsWith('\\') ? path : path + '\\') + fileName);
-
-        return filteredFiles;
+        return  allFiles.filter(filterFunction).map<IFile>((value: string) => {
+                return {
+                path: filePath.endsWith('\\') ? filePath : filePath + '\\',
+                file: value
+            };
+        });
     }
 }
