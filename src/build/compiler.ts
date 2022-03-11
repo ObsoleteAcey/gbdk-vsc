@@ -1,5 +1,5 @@
 import path = require('path');
-import {execFile, ExecFileException} from 'child_process';
+import {ChildProcess, execFile, ExecFileException} from 'child_process';
 import * as vscode from 'vscode';
 import { FileHelper } from '../helpers/fileHelper';
 import { Settings } from '../settings/settings';
@@ -14,6 +14,9 @@ export class GBDKCompiler {
         
     }
 
+    /**
+     * Compiles all the source files it can find
+     */
     public async compileSouceFiles(): Promise<void> {
         const filesToCompile = await this.getCSourceFiles();
 
@@ -36,22 +39,32 @@ export class GBDKCompiler {
         });
     }
 
-    private compileSourceFile(file: IFile): void
+    /**
+     * Compiles a source file in a syncronouse fashion
+     * @param file the IFile instance containing information about the file
+     * @returns 
+     */
+    private compileSourceFile(file: IFile): ChildProcess | null
     {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         
         if(!workspaceFolders || !workspaceFolders[0]) {
-            return;
+            return null;
         }
 
         const compiler = this.settings.gbdkPath || '';
         const compilerOptions = this.settings.compilerOptions || '';
         const objFolder = path.join(workspaceFolders[0].uri.fsPath, this.settings.objectFolder, '\\');
+        const objectFilename = FileHelper.replaceFileExtension(file.file, ".o");
 
-        const args: ReadonlyArray<string> = [compilerOptions, objFolder + 'main.o', file.file];
+        const args: ReadonlyArray<string> = [compilerOptions, objFolder + objectFilename, file.path + file.file];
 
-        execFile(compiler, args, null, (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => {
-            
+        const childProcess = execFile(compiler, args, { windowsVerbatimArguments: true}, (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => {
+            if(error) {
+                throw error;
+            }
         });
+
+        return childProcess;
     }
 }
