@@ -69,6 +69,7 @@ export class InitialFileScaffolding {
 }
 
 export class ExtensionCommands {
+    static clean: string = 'gbdk.clean';
     static compile: string = 'gbdk.compile';
     static link: string = 'gbdk.link';
     static build: string = 'gbdk.build';

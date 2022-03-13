@@ -4,21 +4,25 @@ import * as vscode from 'vscode';
 import { FileHelper } from '../helpers/fileHelper';
 import { Settings } from '../settings/settings';
 import { IFile } from '../interfaces/ifile';
-import { BuildTask } from './buildTask';
+import { GBDKTask } from './task';
 
 /**
 * Compiles the source C code to object files
 */
-export class GBDKCompiler extends BuildTask {
+export class GBDKCompilerTask extends GBDKTask {
     
     constructor(private settings: Settings) {
         super();
     }
 
+    public async runTask(): Promise<void> {
+        return this.compileSouceFiles();
+    }
+
     /**
      * Compiles all the source files it can find
      */
-    public async compileSouceFiles(): Promise<void> {
+    private async compileSouceFiles(): Promise<void> {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         
         if(!workspaceFolders || !workspaceFolders[0]) {

@@ -2,21 +2,24 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { BuildTreeView } from './buildTreeView';
-import { GBDKCompiler } from './build/compiler';
-import { GBDKLinker } from './build/linker';
+import { GBDKCompilerTask } from './build/compiler';
+import { GBDKLinkerTask } from './build/linker';
 import { Settings } from './settings/settings';
 import { ProjectScaffolder } from './projectScaffolder';
 import { ExtensionCommands } from './constants';
+import { GBDKCleanerTask } from './build/cleaner';
 
 class GBDKVSCodeExtension {
 	private settings: Settings;
-	private compiler: GBDKCompiler;
-	private linker: GBDKLinker;
+	private compiler: GBDKCompilerTask;
+	private linker: GBDKLinkerTask;
+	private cleaner: GBDKCleanerTask;
 
 	constructor() {
 		this.settings = new Settings();
-		this.compiler = new GBDKCompiler(this.settings);
-		this.linker = new GBDKLinker(this.settings);
+		this.compiler = new GBDKCompilerTask(this.settings);
+		this.linker = new GBDKLinkerTask(this.settings);
+		this.cleaner = new GBDKCleanerTask(this.settings);
 	}
 
 	// this method is called when your extension is activated
@@ -30,11 +33,13 @@ class GBDKVSCodeExtension {
 		const scaffolder = new ProjectScaffolder(this.settings);
 		
 		context.subscriptions.push(
-			vscode.commands.registerCommand(ExtensionCommands.compile, () => this.compiler.compileSouceFiles()),
-			vscode.commands.registerCommand(ExtensionCommands.link, () => this.linker.linkObjects()),
-			vscode.commands.registerCommand(ExtensionCommands.build, () => {
-				this.compiler.compileSouceFiles();
-				this.linker.linkObjects();
+			vscode.commands.registerCommand(ExtensionCommands.clean, async () => await this.cleaner.runTask()),
+			vscode.commands.registerCommand(ExtensionCommands.compile, async () => await this.compiler.runTask()),
+			vscode.commands.registerCommand(ExtensionCommands.link, async () => await this.linker.runTask()),
+			vscode.commands.registerCommand(ExtensionCommands.build, async () => {
+				await this.cleaner.runTask();
+				await this.compiler.runTask();
+				await this.linker.runTask();
 			}),
 			// register the scaffold command.  It takes the project location and name as strings
 			vscode.commands.registerCommand(ExtensionCommands.scaffold, (projectLocation: string, projectName: string) => scaffolder.scaffoldNewProject(projectLocation, projectName)));

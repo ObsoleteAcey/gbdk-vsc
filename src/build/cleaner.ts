@@ -1,8 +1,12 @@
 import { Settings } from "../settings/settings";
-import { BuildTask } from "./buildTask";
+import { GBDKTask } from "./task";
 
-export class GBDKCleaner extends BuildTask {
+export class GBDKCleanerTask extends GBDKTask {
     constructor(private settings: Settings) {
         super();
+    }
+
+    public async runTask(): Promise<void> {
+        
     }
 }

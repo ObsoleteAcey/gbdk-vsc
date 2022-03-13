@@ -12,6 +12,7 @@
   "activationEvents": [
     "onLanguage:c",
     "onLanguage:asm",
+    "onCommand:gdbk.clean",
     "onCommand:gdbk.compile",
     "onCommand:gdbk.link",
     "onCommand:gdbk.build",
@@ -21,6 +22,14 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "gbdk.clean",
+        "title": "GBDK Clean obj and bin",
+        "icon": {
+          "light": "resources/light/clean.svg",
+          "dark": "resources/dark/clean.svg"
+        }
+      },
       {
         "command": "gbdk.compile",
         "title": "GBDK Compile Source",
@@ -39,7 +48,7 @@
       },
       {
         "command": "gbdk.build",
-        "title": "GBDK Compile and link",
+        "title": "GBDK Clean, Compile, and Link",
         "icon": {
           "light": "resources/light/run-build.svg",
           "dark": "resources/dark/run-build.svg"
@@ -52,6 +61,11 @@
     ],
     "menus": {
       "view/item/context": [
+        {
+          "command": "gbdk.clean",
+          "when": "view == gbdk-build && viewItem == clean",
+          "group": "inline"
+        },
         {
           "command": "gbdk.compile",
           "when": "view == gbdk-build && viewItem == compile",
