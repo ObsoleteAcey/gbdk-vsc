@@ -66,7 +66,8 @@ export class ProjectScaffolder {
 
     private createProjectDirs(baseProjectPath: string) : boolean {
         const objDir = 'obj';
-        const buildDir = 'build';
+        const binDir = 'bin';
+        const vscodeDir = '.vscode';
 
         try {
             // make base project path
@@ -88,8 +89,11 @@ export class ProjectScaffolder {
             fs.mkdirSync(path.join(baseProjectPath, objDir, this.settings.backgroundsFolder!));
             fs.mkdirSync(path.join(baseProjectPath, objDir, this.settings.soundFolder!));
 
-            // make the build dir
-            fs.mkdirSync(path.join(baseProjectPath, buildDir));
+            // make the bin dir
+            fs.mkdirSync(path.join(baseProjectPath, binDir));
+
+            // make the .vscode dir
+            fs.mkdirSync(path.join(baseProjectPath, vscodeDir));
             return true;
         } catch {
             return false;

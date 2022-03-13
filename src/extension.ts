@@ -36,6 +36,7 @@ class GBDKVSCodeExtension {
 				this.compiler.compileSouceFiles();
 				this.linker.linkObjects();
 			}),
+			// register the scaffold command.  It takes the project location and name as strings
 			vscode.commands.registerCommand(ExtensionCommands.scaffold, (projectLocation: string, projectName: string) => scaffolder.scaffoldNewProject(projectLocation, projectName)));
 
 		vscode.window.registerTreeDataProvider(

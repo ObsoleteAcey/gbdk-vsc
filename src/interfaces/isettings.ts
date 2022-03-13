@@ -3,6 +3,7 @@ export interface ISettings {
     compilerOptions?: string;
     linkerOptions?: string;
     romFilename?: string;
+    sourceFileExtensions?: string[];
     includeFolders?: string[];
     srcFolder?: string;
     objectFolder: string;
@@ -11,4 +12,5 @@ export interface ISettings {
     tilesFolder?: string;
     backgroundsFolder?: string;
     soundFolder?: string;
+    outputBinFolde?: string;
 }

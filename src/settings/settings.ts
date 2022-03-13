@@ -19,6 +19,7 @@ export class Settings {
             compilerOptions: this.compilerOptions,
             linkerOptions: this.linkerOptions,
             romFilename: this.romFilename,
+            sourceFileExtensions: this.sourceFileExtensions,
             includeFolders: this.includeFolders,
             srcFolder: this.srcFolder,
             mapsFolder: this.mapsFolder,
@@ -26,27 +27,32 @@ export class Settings {
             tilesFolder: this.tilesFolder,
             backgroundsFolder: this.backgroundsFolder,
             soundFolder: this.soundFolder,
-            objectFolder: this.objectFolder
+            objectFolder: this.objectFolder,
+            outputBinFolde: this.outputBinFolder
         };
     }
 
-    public get gbdkPath(): string|undefined { 
+    public get gbdkPath(): string { 
         return this.settings.get<string>(SettingNameConstants.gdbkPath, SettingDefaultValueConstants.gdbkPath); 
     }
 
-    public get compilerOptions(): string|undefined { 
+    public get compilerOptions(): string { 
         return this.settings.get<string>(SettingNameConstants.compilerOptions, SettingDefaultValueConstants.compilerOptions); 
     }
 
-    public get linkerOptions(): string|undefined { 
+    public get linkerOptions(): string { 
         return this.settings.get<string>(SettingNameConstants.linkerOptions, SettingDefaultValueConstants.linkerOptions); 
     }
 
-    public get romFilename(): string|undefined {
+    public get romFilename(): string {
         return this.settings.get<string>(SettingNameConstants.romFilename, SettingDefaultValueConstants.romFilename);
     }
 
-    public get includeFolders(): string[]|undefined {
+    public get sourceFileExtensions(): string[] {
+        return this.settings.get<string[]>(SettingNameConstants.sourceFileExtensions, SettingDefaultValueConstants.sourceFileExtensions);
+    }
+
+    public get includeFolders(): string[] {
         return this.settings.get<string[]>(SettingNameConstants.includeFolders, SettingDefaultValueConstants.includeFolders);
     }
 
@@ -62,19 +68,23 @@ export class Settings {
         return this.settings.get<string>(SettingNameConstants.mapsFolder, SettingDefaultValueConstants.mapsFolder);
     }
 
-    public get spritesFolder(): string|undefined {
+    public get spritesFolder(): string {
         return this.settings.get<string>(SettingNameConstants.spritesFolder, SettingDefaultValueConstants.spritesFolder);
     }
 
-    public get tilesFolder(): string|undefined {
+    public get tilesFolder(): string {
         return this.settings.get<string>(SettingNameConstants.tilesFolder, SettingDefaultValueConstants.tilesFolder);
     }
 
-    public get backgroundsFolder(): string|undefined {
+    public get backgroundsFolder(): string {
         return this.settings.get<string>(SettingNameConstants.backgroundsFolder, SettingDefaultValueConstants.backgroundsFolder);
     }
 
-    public get soundFolder(): string|undefined {
+    public get soundFolder(): string {
         return this.settings.get<string>(SettingNameConstants.soundFolder, SettingDefaultValueConstants.soundFolder);
+    }
+
+    public get outputBinFolder(): string {
+        return this.settings.get<string>(SettingNameConstants.outputBinFolder, SettingDefaultValueConstants.outputBinFolder);
     }
 }

@@ -95,13 +95,22 @@
           },
           "linkerOptions": {
             "type": "string",
-            "default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o",
+            "default": "-Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -Wl-yt1 -Wl-yo4 -Wl-ya0 -o",
             "description": "Options to pass to the linker"
           },
           "romFilename": {
             "type": "string",
-            "default": "",
+            "default": "main.gb",
             "description": "The output file name for the Gameboy ROM.  No need to include the extension."
+          }          ,
+          "sourceFileExtensions": {
+            "type": "array",
+            "default": [".c", ".s"],
+            "description": "The output file name for the Gameboy ROM.  No need to include the extension.",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
           },
           "includeFolders": {
             "type": "array",
@@ -141,6 +150,11 @@
             "type": "string",
             "default": "sound",
             "description": "Folder for the sound files"
+          },
+          "outputBinFolder": {
+            "type": "string",
+            "default": "bin",
+            "description": "Folder for the output binary i.e. rom.gb file"
           }
         }
       }
