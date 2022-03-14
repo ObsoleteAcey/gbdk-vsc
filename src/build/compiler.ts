@@ -33,7 +33,7 @@ export class GBDKCompilerTask extends GBDKTask {
         // use stored extensions OR just default to '.c'
         const fileExtensions = this.settings.sourceFileExtensions || ['.c'];
 
-        const filesToCompile = await this.getSourceFiles(sourceDir, fileExtensions);
+        const filesToCompile = await FileHelper.getFilesWithSpecificExtensions(sourceDir, fileExtensions);
 
         for(let file of filesToCompile) {
             this.compileSourceFile(file);

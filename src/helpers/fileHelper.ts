@@ -48,4 +48,49 @@ export class FileHelper {
     public static replaceFileExtension(filename: string, newExtension: string) : string {
         return this.removeExtensionFromFilename(filename) + (newExtension.includes(".") ? newExtension : "." + newExtension);
     }
+
+    /**
+     * Gets files from a specific director that have any of the extensions contained
+     * in fileExtensions.  If no extensions are secified, all files are returned.
+     * @param searchDir The directory to search for files
+     * @param fileExtensions 
+     * @returns 
+     */
+     public static async getFilesWithSpecificExtensions(searchDir: string, fileExtensions: string[]): Promise<IFile[]> {
+        return await FileHelper.getFilesFromDir(searchDir, (fileName: string) => {
+            return !fileExtensions.length || fileExtensions.some((value: string, index: number, array: string[]) => {
+                return fileName.endsWith(value);
+            });
+        });
+    }
+
+    /**
+     * 
+     * @param files 
+     */
+    public static async deleteFiles(files: IFile[]): Promise<void> {
+        let promises: Promise<void>[] = [];
+        for(let file of files) {
+            promises.push(FileHelper.deleteFile(file));
+        }
+
+        await Promise.all(promises);
+    }
+
+    /**
+     * 
+     * @param file 
+     * @returns 
+     */
+    public static deleteFile(file: IFile): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            fs.rm(file.path + file.file, (error) => {
+                if(error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
 }

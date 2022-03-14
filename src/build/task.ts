@@ -8,17 +8,5 @@ export abstract class GBDKTask  {
     public abstract runTask(): Promise<void>;
 
 
-    /**
-     * 
-     * @param searchDir 
-     * @param fileExtensions 
-     * @returns 
-     */
-    protected async getSourceFiles(searchDir: string, fileExtensions: string[]): Promise<IFile[]> {
-        return await FileHelper.getFilesFromDir(searchDir, (fileName: string) => {
-            return fileExtensions.some((value: string, index: number, array: string[]) => {
-                return fileName.endsWith(value);
-            });
-        });
-    }
+    
 }

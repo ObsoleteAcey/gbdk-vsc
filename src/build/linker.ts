@@ -1,6 +1,7 @@
 import { ChildProcess, execFile, ExecFileException } from 'child_process';
 import path = require('path');
 import * as vscode from 'vscode';
+import { FileHelper } from '../helpers/fileHelper';
 import { IFile } from '../interfaces/ifile';
 import { Settings } from "../settings/settings";
 import { GBDKTask } from './task';
@@ -27,7 +28,7 @@ export class GBDKLinkerTask extends GBDKTask {
 
         const objectDir = path.join(workspaceFolders[0].uri.fsPath, this.settings.objectFolder);
 
-        const filesToLink = await this.getSourceFiles(objectDir, ['.o']);
+        const filesToLink = await FileHelper.getFilesWithSpecificExtensions(objectDir, ['.o']);
 
         this.linkObjectFiles(filesToLink);
     }

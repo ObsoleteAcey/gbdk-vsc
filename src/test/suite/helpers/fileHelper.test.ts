@@ -4,7 +4,8 @@ import * as assert from 'assert';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import { FileHelper } from '../../../helpers/fileHelper';
-// import * as myExtension from '../../extension';
+import * as mockfs from 'mock-fs';
+import mock = require('mock-fs');
 
 suite('Filehelper Test Suite', () => {
 	vscode.window.showInformationMessage('Start all tests.');
@@ -47,5 +48,47 @@ suite('Filehelper Test Suite', () => {
         const result = FileHelper.replaceFileExtension(fileName, "o");
 
 		assert.strictEqual(result, "mySourceFile.o");
+	});
+
+    test('Test getFilesWithSpecificExtensions gets files with .c extension when c extensuon asked for', async () => {
+        const mockFS = mock({
+            'test/dir/': {
+              'some-file.txt': 'text file should remain',
+              'someSource.c' : 'c sounce file should be retrieved',
+              'empty-dir': {/** empty directory */}
+            }
+        });
+        
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', ["c"]);
+
+		assert.strictEqual(result.length, 1);
+        assert.deepEqual(result, [{
+            path: 'test\\dir\\',
+            file: 'someSource.c'
+        }]);
+	});
+
+    test('Test getFilesWithSpecificExtensions gets all files in dir with empty extension array', async () => {
+        const mockFS = mock({
+            'test/dir/': {
+              'some-file.txt': 'text file should remain',
+              'someSource.c' : 'c sounce file should be retrieved',
+              'empty-dir': {/** empty directory */}
+            }
+        });
+        
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', []);
+
+		assert.strictEqual(result.length, 2);
+        assert.deepEqual(result, [
+            {
+                path: 'test\\dir\\',
+                file: 'some-file.txt'
+            },
+            {
+                path: 'test\\dir\\',
+                file: 'someSource.c'
+            }
+        ]);
 	});
 });
