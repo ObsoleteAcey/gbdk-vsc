@@ -55,7 +55,27 @@ suite('Filehelper Test Suite', () => {
             'test/dir/': {
               'some-file.txt': 'text file should remain',
               'someSource.c' : 'c sounce file should be retrieved',
-              'empty-dir': {/** empty directory */}
+              'sub-dir': {}
+            }
+        });
+        
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', { recursive: false }, ["c"]);
+
+		assert.strictEqual(result.length, 1);
+        assert.deepEqual(result, [{
+            path: 'test\\dir\\',
+            file: 'someSource.c'
+        }]);
+	});
+
+    test('Test getFilesWithSpecificExtensions gets files with .c extension but ignores subdirs when c extension asked for', async () => {
+        const mockFS = mock({
+            'test/dir/': {
+              'some-file.txt': 'text file should remain',
+              'someSource.c' : 'c sounce file should be retrieved',
+              'sub-dir': {
+                  'subDirSouceFile.c': 'subdir c file will be ignored'
+              }
             }
         });
         
@@ -97,15 +117,18 @@ suite('Filehelper Test Suite', () => {
             'test/dir/': {
               'some-file.txt': 'text file should remain',
               'someSource.c' : 'c sounce file should be retrieved',
-              'empty-dir': { 
-                  'my-other-file.o': 'just another file'
+              'subDir': { 
+                  'my-other-file.o': 'just another file',
+                  'sub-subdir': {
+                      'sub-subdir-file.txt': 'a test file down in a dir'
+                  }
               }
             }
         });
         
         const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', { recursive: true }, []);
 
-		assert.strictEqual(result.length, 3);
+		assert.strictEqual(result.length, 4);
         assert.deepEqual(result, [
             {
                 path: 'test\\dir\\',
@@ -116,8 +139,38 @@ suite('Filehelper Test Suite', () => {
                 file: 'someSource.c'
             },
             {
-                path: 'test\\dir\\empty-dir\\',
+                path: 'test\\dir\\subDir\\',
                 file: 'my-other-file.o'
+            },
+            {
+                path: 'test\\dir\\subDir\\sub-subdir\\',
+                file: 'sub-subdir-file.txt'
+            }
+        ]);
+	});
+
+    test('Test getFilesWithSpecificExtensions gets files with .c extension (including files in subdirs) when c extension asked for', async () => {
+        const mockFS = mock({
+            'test/dir/': {
+              'some-file.txt': 'text file should remain',
+              'someSource.c' : 'c sounce file should be retrieved',
+              'sub-dir': {
+                  'subDirSource.c': 'subdir source file will be picked up'
+              }
+            }
+        });
+        
+        const result = await FileHelper.getFilesWithSpecificExtensions('test', { recursive: true }, ["c"]);
+
+		assert.strictEqual(result.length, 2);
+        assert.deepEqual(result, [
+            {
+                path: 'test\\dir\\',
+                file: 'someSource.c'
+            },
+            {
+                path: 'test\\dir\\sub-dir\\',
+                file: 'subDirSource.c'
             }
         ]);
 	});

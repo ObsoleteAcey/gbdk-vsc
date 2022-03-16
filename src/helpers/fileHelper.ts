@@ -22,13 +22,15 @@ export class FileHelper {
                 return value.isDirectory();
             });
 
+            // more of less the base case is there will be nothing to
+            // iterate through here, and this no more recursive calls
             for(const subDir of subDirs) {
+                // recurse through the subdirs.  This will look for more dirs,
+                // then the files in those dirs
                 const fullSubDir = path.join(filePath, subDir.name, '\\');
                 subFiles = subFiles.concat(await FileHelper.getFilesFromDir(fullSubDir, fileOptions, filterFunction));
             }
         }
-        
-        
 
         // filter out any directories.  We only want files
         const allFiles = allFsEntries
