@@ -1,5 +1,7 @@
 import * as fs from 'fs';
+import path = require('path');
 import { IFile } from '../interfaces/ifile';
+import { IGetFileOptions } from '../interfaces/igetFileOptions';
 
 export class FileHelper {
 
@@ -10,17 +12,39 @@ export class FileHelper {
      * This allows removal of files that are of no interest to the caller.
      * @returns A promise that once fulfilled, will return a list of all the files
      */
-    public static async getFilesFromDir(filePath: string, 
+    public static async getFilesFromDir(filePath: string, fileOptions: IGetFileOptions,
         filterFunction: (fileName: string, index: number, array: string[]) => boolean): Promise<IFile[]> {
         
-        const allFiles = fs.readdirSync(filePath);
+        const allFsEntries = fs.readdirSync(filePath, { withFileTypes: true });
+        let subFiles: IFile[] = [];
+        if(fileOptions?.recursive) {
+            const subDirs = allFsEntries.filter((value: fs.Dirent, index: number, array: fs.Dirent[]) => {
+                return value.isDirectory();
+            });
+
+            for(const subDir of subDirs) {
+                const fullSubDir = path.join(filePath, subDir.name, '\\');
+                subFiles = subFiles.concat(await FileHelper.getFilesFromDir(fullSubDir, fileOptions, filterFunction));
+            }
+        }
+        
+        
+
+        // filter out any directories.  We only want files
+        const allFiles = allFsEntries
+                    .filter((value: fs.Dirent, index: number, array: fs.Dirent[]) => {
+                        return value.isFile();
+                    }).map<string>((file: fs.Dirent) => {
+                        console.log(file.name);
+                        return file.name;
+                    });
 
         return  allFiles.filter(filterFunction).map<IFile>((value: string) => {
-                return {
-                path: filePath.endsWith('\\') ? filePath : filePath + '\\',
-                file: value
-            };
-        });
+                    return {
+                        path: filePath.endsWith('\\') ? filePath : filePath + '\\',
+                        file: value
+                    };
+        }).concat(subFiles);
     }
 
     /**
@@ -56,8 +80,8 @@ export class FileHelper {
      * @param fileExtensions 
      * @returns 
      */
-     public static async getFilesWithSpecificExtensions(searchDir: string, fileExtensions: string[]): Promise<IFile[]> {
-        return await FileHelper.getFilesFromDir(searchDir, (fileName: string) => {
+     public static async getFilesWithSpecificExtensions(searchDir: string, fileOptions: IGetFileOptions, fileExtensions: string[]): Promise<IFile[]> {
+        return await FileHelper.getFilesFromDir(searchDir, fileOptions, (fileName: string) => {
             return !fileExtensions.length || fileExtensions.some((value: string, index: number, array: string[]) => {
                 return fileName.endsWith(value);
             });

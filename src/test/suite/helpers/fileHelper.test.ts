@@ -59,7 +59,7 @@ suite('Filehelper Test Suite', () => {
             }
         });
         
-        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', ["c"]);
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', { recursive: false }, ["c"]);
 
 		assert.strictEqual(result.length, 1);
         assert.deepEqual(result, [{
@@ -77,7 +77,7 @@ suite('Filehelper Test Suite', () => {
             }
         });
         
-        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', []);
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', { recursive: false }, []);
 
 		assert.strictEqual(result.length, 2);
         assert.deepEqual(result, [
@@ -88,6 +88,36 @@ suite('Filehelper Test Suite', () => {
             {
                 path: 'test\\dir\\',
                 file: 'someSource.c'
+            }
+        ]);
+	});
+
+    test('Test getFilesWithSpecificExtensions gets all files in dir recursively with empty extension array', async () => {
+        const mockFS = mock({
+            'test/dir/': {
+              'some-file.txt': 'text file should remain',
+              'someSource.c' : 'c sounce file should be retrieved',
+              'empty-dir': { 
+                  'my-other-file.o': 'just another file'
+              }
+            }
+        });
+        
+        const result = await FileHelper.getFilesWithSpecificExtensions('test\\dir', { recursive: true }, []);
+
+		assert.strictEqual(result.length, 3);
+        assert.deepEqual(result, [
+            {
+                path: 'test\\dir\\',
+                file: 'some-file.txt'
+            },
+            {
+                path: 'test\\dir\\',
+                file: 'someSource.c'
+            },
+            {
+                path: 'test\\dir\\empty-dir\\',
+                file: 'my-other-file.o'
             }
         ]);
 	});

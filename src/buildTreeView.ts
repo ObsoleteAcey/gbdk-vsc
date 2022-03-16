@@ -31,6 +31,7 @@ export class BuildTreeView implements vscode.TreeDataProvider<BuildStep> {
             return Promise.resolve([]);
         } else {
             return Promise.resolve([
+                new BuildStep('clean', 'Clean build files', 'Clean build files', vscode.TreeItemCollapsibleState.None, ExtensionCommands.clean),
                 new BuildStep('compile', 'Compile source', 'Compile source', vscode.TreeItemCollapsibleState.None, ExtensionCommands.compile),
                 new BuildStep('link', 'Link objects', 'Link object files', vscode.TreeItemCollapsibleState.None, ExtensionCommands.link),
                 new BuildStep('build', 'Build ROM', 'Build ROM file', vscode.TreeItemCollapsibleState.None, ExtensionCommands.build)

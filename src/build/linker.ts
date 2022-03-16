@@ -28,7 +28,7 @@ export class GBDKLinkerTask extends GBDKTask {
 
         const objectDir = path.join(workspaceFolders[0].uri.fsPath, this.settings.objectFolder);
 
-        const filesToLink = await FileHelper.getFilesWithSpecificExtensions(objectDir, ['.o']);
+        const filesToLink = await FileHelper.getFilesWithSpecificExtensions(objectDir, { recursive: true }, ['.o']);
 
         this.linkObjectFiles(filesToLink);
     }
