@@ -1,6 +1,6 @@
-# gbdl-vsc README
+# gbdk-vsc README
 
-VSCode extension to help with scaffolding, building, and debugging GBDC projects
+VSCode extension to help with scaffolding, building, and debugging GBDK (Game Boy Development kit) projects
 
 ## Features
 
