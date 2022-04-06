@@ -35,7 +35,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 The extension is currently a WIP, but does have the following features:
 
-Scaffolding of a new project
-Compiling a project
-Linking a project
-Building a project - a clean, compile, and link rolled in to one
+* Scaffolding of a new project
+* Compiling a project
+* Linking a project
+* Building a project - a clean, compile, and link rolled in to one
